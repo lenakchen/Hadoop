@@ -1,51 +1,55 @@
 1. Install Pig
 
 Go to official website:
-http://pig.apache.org/docs/r0.7.0/setup.html
+http://pig.apache.org/docs/r0.16.0/start.html
 
 Install Hadoop and Java in Requirements:
-http://pig.apache.org/docs/r0.7.0/setup.html#req
+http://pig.apache.org/docs/r0.16.0/start.html#req
 
 Download and install Pig:
-http://pig.apache.org/docs/r0.7.0/setup.html#Beginning+Pig
+http://pig.apache.org/docs/r0.16.0/start.html#download
 
 2. Set up working environment for Pig
+For example:
 
 Add JAVA_HOME environment variable:
-$ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home
+$ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdkn.n.n_*.jdk/Contents/Home
 
-Set Hadoop Home environment:
+Set HADOOP_HOME environment variable:
 $ export HADOOP_HOME=/<my-path-to-hadoop>/hadoop-n.n.n
 $ export PATH=$PATH:$HADOOP_HOME/bin
 
-Add Pig Home:
+Set PIG_HOME environment variable:
 $ export PATH=/<my-path-to-pig>/pig-n.n.n/bin:$PATH
+$ export PIG_HOME=/<my-path-to-pig>/pig-n.n.n 
 
-Try the following command, to get a list of Pig commands:
-
+Test the Pig installation with this simple command: 
 $ pig -help
-Try the following command, to start the Grunt shell:
-
-$ pig 
 
 
-3. Script Files
-http://pig.apache.org/docs/r0.7.0/setup.html#Sample+Code
+3. Run Pig
+http://pig.apache.org/docs/r0.16.0/start.html#run
 
-Copy the /etc/passwd file to your local working directory:
-$ cp /etc/passwd <my-working-directory>/
+Examples
+This example shows how to run Pig in local and mapreduce mode using the pig command.
 
-Creat id.pig, idlocal.java and idmapreduce.java as Sample Code.
+$ cp /etc/passwd <local-working-directory>/
 
+/* id.pig */
+A = load 'passwd' using PigStorage(':');  -- load the passwd file 
+B = foreach A generate $0 as id;  -- extract the user IDs 
+store B into 'id.out';  -- write the results to a file name id.out
 
-4. Run Modes
-http://pig.apache.org/docs/r0.7.0/setup.html#Run+Modes
-
-Local Mode:
+local Mode:
 $ pig -x local id.pig
+
+Tez Local Mode:
+$ pig -x tez_local id.pig
 
 Mapreduce Mode:
 $ pig id.pig
 or
 $ pig -x mapreduce id.pig
 
+Tez Mode:
+$ pig -x tez id.pig
