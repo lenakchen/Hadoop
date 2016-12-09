@@ -1,0 +1,43 @@
+1. Installation
+https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-InstallationandConfiguration
+
+Requirements:
+Java 1.7+ 
+Hadoop 2.x 
+
+Installing Hive using a binary release:
+$ tar -xzvf hive-x.y.z.bin.tar.gz
+
+Set the environment variable HIVE_HOME in bash profile:
+export HIVE_HOME=<hive-install-directory>
+export PATH=$PATH:$HIVE_HOME/bin
+
+
+2. Running Hive
+Set the environment variable HADOOP_HOME in bash profile:
+export HADOOP_HOME=<hadoop-install-dir>
+export PATH=$HADOOP_HOME/bin:$PATH
+
+In addition, you must use below HDFS commands to create /tmp and 
+/user/hive/warehouse (aka hive.metastore.warehouse.dir) and set them 
+chmod g+w before you can create a table in Hive.
+Within your working directory:
+$ hadoop fs -mkdir ./tmp
+$ hadoop fs -chmod g+w /tmp
+$ hadoop fs -mkdir ./user/hive/warehouse
+
+2. Running HiveServer2 and Beeline
+
+Starting from Hive 2.1, we need to run the schematool command below 
+as an initialization step before running hive. 
+$ schematool -initSchema -dbType derby
+$ hive
+
+After installing hive, if the first thing you did was run hive, even though it
+fails, hive creates a metastore_db directory in the directory from which you ran 
+hive. If you already ran hive and then tried to initiate Schema and it's failing,
+remove metastore_db and derby.log:
+$ rm -rf metastore_db derby.log
+Then run schematool and hive again.
+
+
