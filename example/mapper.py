@@ -8,8 +8,13 @@
 
 import sys
 
+# input comes from STDIN (standard input)
 for line in sys.stdin:
+	# remove leading and trailing whitespace, then split the line into words by tab-delimited
     data = line.strip().split("\t")
     if len(data) == 6:
         date, time, store, item, cost, payment = data
+        # write the results to STDOUT (standard output);
+        # what we output here will be the input for the
+        # Reduce step, i.e. the input for reducer.py
         print "{0}\t{1}".format(store, cost)
