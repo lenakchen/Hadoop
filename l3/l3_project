@@ -1,0 +1,7 @@
+# Break the sales down by product category across all of the stores
+
+# Run Hadoop Job
+$ hs mapper.py reducer.py myinput l3_output1
+
+# What is the value of total sales for the categories of 'Toys' and 'Consumer Electronics'?
+$ hadoop fs -cat l3_output1/part-00000 | grep 'Toys\|Consumer Electronics'
