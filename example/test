@@ -1,0 +1,7 @@
+# test mapper and reducer scripts locally in terminal
+# template: cat data | map | sort | reduce
+
+$ head -25 purchases.txt | example/mapper.py 
+$ head -25 purchases.txt | example/mapper.py | sort -k1,1
+$ head -25 purchases.txt | example/mapper.py | sort -k1,1 | example/reducer.py
+
