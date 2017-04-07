@@ -1,7 +1,10 @@
+# Part One: Store Sales Problem
+# data: purchases.txt
+#
 # 1. Break the sales down by product category across all of the stores
 #
 # Run Hadoop Job
-$ hs ./l3/mapper1.py ./l3/reducer1.py myinput l3_output1
+$ hs ./mapper1.py ./reducer1.py myinput l3_output1
 #
 # What is the value of total sales for the categories of 'Toys' and 'Consumer Electronics'?
 $ hadoop fs -cat l3_output1/part-00000 | grep 'Toys\|Consumer Electronics'
@@ -9,14 +12,14 @@ $ hadoop fs -cat l3_output1/part-00000 | grep 'Toys\|Consumer Electronics'
 
 # 2. Find the monetary value for the highest individual sale for each separate store. 
 # Run Hadoop Job
-$ hs ./mapper2.py ./l3/reducer2.py myinput l3_output2
+$ hs ./mapper2.py ./reducer2.py myinput l3_output2
 #
 # What are the values for the stores 'Reno', 'Toledo' and 'Chandler'
 $ hadoop fs -cat l3_output2/part-00000 | grep 'Reno\|Toledo\|Chandler'
 
 # 3. Find the total sales value across all the stores, and the total number of sales. Assume there is only one reducer.
 # Run Hadoop Job
-$ hs ./mapper3.py ./l3/reducer3.py myinput l3_output3
+$ hs ./mapper2.py ./reducer3.py myinput l3_output3
 #
-#
-
+# What is the total number of sales and the total sales value from all the stores
+$ hadoop fs -cat l3_output3/part-00000 
