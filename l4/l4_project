@@ -56,18 +56,19 @@ $ hadoop fs -cat l4_output2/part-00000
 # for each weekday. Make sure that the logic that you use in reducer code can be used to 
 # calculate intermediate value on mappers. Run the job by using combiner.
 #
-# To use combiner, you will have to add a new shortcut command to your VM. 
-# gedit ~/.bashrc
-# In the editor that opens, find a function definition "run_mapreduce". Copy the contents 
-# and create a new function (within the same file), say "run_mapreduce_with_combiner". 
-# Add the following "-combiner $2" right after "-reducer $2".
-# And at the end of the file, add a line for the alias:
-# alias hsc=run_mapreduce_with_combiner (or whatever you called that function). 
-# Now save the file and exit the gedit program. Reload the configuration file.
-# source ~/.bashrc
-# The new alias will take the second parameter (which is the reducer script) and also 
-# use it for combiner. If you want, you can actually make another alias, that allows you 
-# to use a different script for combiner. You would need to also -upload it, same as you 
-# did for mapper and reducer scripts.
+# Write a new shortcut command in .bashrc
+$ gedit ~/.bashrc
+# Write a new function called  "run_mapreduce_with_combiner". 
+# 
+# run_mapreduce_with_combinder() { 
+#       hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-
+#mr1-cdh4.1.1.jar -mapper $1 -combiner $2 -reducer $2 -file $1 -file $2 -input $3 -output $4 
+#}
+# alias hsc=run_mapreduce_with_combiner
 #
+# Reload the configuration file.
+$ source ~/.bashrc
+# 
+# Run Hadoop job with combiner
+$ hsc ./mapper2.py ./reducer3.py myinput/purchases.txt l4_output3
 #
